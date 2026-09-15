@@ -119,6 +119,20 @@ const websiteLinks: FooterLink[] = [
   },
 ];
 
+function createGmailUrl(
+  emailAddress: string,
+  businessName: string,
+) {
+  const parameters = new URLSearchParams({
+    view: "cm",
+    fs: "1",
+    to: emailAddress,
+    su: `Website enquiry for ${businessName}`,
+  });
+
+  return `https://mail.google.com/mail/?${parameters.toString()}`;
+}
+
 export default function Footer({
   settings,
 }: FooterProps) {
@@ -126,6 +140,11 @@ export default function Footer({
     `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
       settings.mapsSearchQuery,
     )}`;
+
+  const gmailUrl = createGmailUrl(
+    settings.publicEmail,
+    settings.businessName,
+  );
 
   return (
     <footer className="relative z-40 bg-slate-950 text-slate-300">
@@ -140,8 +159,8 @@ export default function Footer({
           </p>
 
           <p className="mt-5 text-sm leading-7 text-slate-400">
-            Battery sales and services together with WiFi assistance
-            for homes, businesses and vehicle owners.
+            Battery sales and services together with WiFi
+            assistance for homes, businesses and vehicle owners.
           </p>
 
           <div className="mt-6 space-y-4 text-sm">
@@ -149,7 +168,8 @@ export default function Footer({
               href={mapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex gap-3 transition hover:text-white"
+              aria-label={`Open directions to ${settings.businessName} in Google Maps`}
+              className="flex gap-3 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-4 focus:ring-offset-slate-950"
             >
               <MapPin
                 size={19}
@@ -179,8 +199,12 @@ export default function Footer({
             />
 
             <a
-              href={`mailto:${settings.publicEmail}`}
-              className="flex items-center gap-3 break-all transition hover:text-white"
+              href={gmailUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Email ${settings.businessName} using Gmail`}
+              title="Open Gmail"
+              className="flex items-center gap-3 break-all transition hover:text-white focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-4 focus:ring-offset-slate-950"
             >
               <Mail
                 size={19}
@@ -188,6 +212,11 @@ export default function Footer({
               />
 
               <span>{settings.publicEmail}</span>
+
+              <ExternalLink
+                size={14}
+                className="shrink-0 text-slate-500"
+              />
             </a>
           </div>
         </section>
@@ -278,10 +307,15 @@ function FooterSection({
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-2">
           {Icon && (
-            <Icon size={20} className={iconColour} />
+            <Icon
+              size={20}
+              className={iconColour}
+            />
           )}
 
-          <h2 className="font-bold text-white">{title}</h2>
+          <h2 className="font-bold text-white">
+            {title}
+          </h2>
         </div>
 
         <button
