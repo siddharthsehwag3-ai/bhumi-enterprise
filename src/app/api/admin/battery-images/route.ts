@@ -30,18 +30,12 @@ export async function POST(request: Request) {
 
     if (!session) {
       return Response.json(
-        { error: "Administrator login required." },
-        { status: 401 },
-      );
-    }
-
-    if (!process.env.BLOB_READ_WRITE_TOKEN) {
-      return Response.json(
         {
-          error:
-            "Cloud image storage is not connected yet. Add BLOB_READ_WRITE_TOKEN after creating the Vercel Blob store.",
+          error: "Administrator login required.",
         },
-        { status: 503 },
+        {
+          status: 401,
+        },
       );
     }
 
@@ -50,8 +44,12 @@ export async function POST(request: Request) {
 
     if (!(uploadedValue instanceof File)) {
       return Response.json(
-        { error: "Please choose an image." },
-        { status: 400 },
+        {
+          error: "Please choose an image.",
+        },
+        {
+          status: 400,
+        },
       );
     }
 
@@ -61,26 +59,38 @@ export async function POST(request: Request) {
           error:
             "Only JPG, JPEG, PNG and WebP images are accepted.",
         },
-        { status: 400 },
+        {
+          status: 400,
+        },
       );
     }
 
     if (uploadedValue.size <= 0) {
       return Response.json(
-        { error: "The selected image is empty." },
-        { status: 400 },
+        {
+          error: "The selected image is empty.",
+        },
+        {
+          status: 400,
+        },
       );
     }
 
     if (uploadedValue.size > maximumFileSize) {
       return Response.json(
-        { error: "The image must be smaller than 4 MB." },
-        { status: 400 },
+        {
+          error: "The image must be smaller than 4 MB.",
+        },
+        {
+          status: 400,
+        },
       );
     }
 
     const blob = await put(
-      `battery-images/${safeFileName(uploadedValue.name)}`,
+      `battery-images/${safeFileName(
+        uploadedValue.name,
+      )}`,
       uploadedValue,
       {
         access: "public",
@@ -98,8 +108,13 @@ export async function POST(request: Request) {
     console.error("Battery image upload failed:", error);
 
     return Response.json(
-      { error: "Unable to upload the battery image." },
-      { status: 500 },
+      {
+        error:
+          "Unable to upload the battery image. Check the Vercel Blob connection and try again.",
+      },
+      {
+        status: 500,
+      },
     );
   }
 }
