@@ -28,22 +28,22 @@ export default function Hero() {
       <div className="absolute inset-0 -z-10 bg-linear-to-r from-[#edf2ee] via-[#edf2ee]/92 to-slate-900/15" />
 
       <div className="mx-auto grid min-h-[calc(100vh-78px)] max-w-7xl items-center gap-14 px-6 py-20 lg:grid-cols-[1fr_0.9fr] lg:px-8">
-        <div className="max-w-2xl">
+        <div className="max-w-3xl">
           <div className="inline-flex items-center gap-2 rounded-full border border-emerald-300 bg-white/90 px-4 py-2 text-sm font-bold text-emerald-800 shadow-sm backdrop-blur">
             <ShieldCheck size={17} />
             Established 2022
           </div>
 
-          <p className="mt-7 text-sm font-bold uppercase tracking-[0.3em] text-emerald-800 sm:text-base">
-            Welcome to Bhumi Enterprise
-          </p>
+          <h1 className="mt-7 text-5xl font-extrabold uppercase leading-[0.95] tracking-tight text-emerald-800 sm:text-6xl lg:text-7xl">
+            Bhumi Enterprise
+          </h1>
 
-          <h1 className="mt-4 text-5xl font-extrabold leading-[0.95] tracking-tight text-slate-950 sm:text-6xl lg:text-7xl">
+          <h2 className="mt-6 text-3xl font-extrabold leading-[1.05] tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
             Reliable power.
             <span className="mt-2 block text-emerald-700">
               Dependable connection.
             </span>
-          </h1>
+          </h2>
 
           <p className="mt-7 max-w-xl text-xl font-bold leading-8 text-slate-900">
             Authorised Tata Green Batteries Distributor
@@ -54,14 +54,15 @@ export default function Hero() {
           </p>
 
           <p className="mt-6 max-w-xl text-base leading-8 text-slate-700 sm:text-lg">
-            Battery sales, free installation, free battery checkup and
-            WiFi assistance for homes, businesses and vehicle owners.
+            Battery sales, free installation, free battery checkup
+            and WiFi assistance for homes, businesses and vehicle
+            owners.
           </p>
 
           <div className="mt-9 flex flex-wrap gap-4">
             <Link
               href="/#batteries"
-              className="inline-flex items-center gap-2 rounded-xl bg-emerald-700 px-6 py-3.5 font-semibold text-white shadow-lg transition hover:-translate-y-1 hover:bg-emerald-800"
+              className="inline-flex items-center gap-2 rounded-xl bg-emerald-700 px-6 py-3.5 font-semibold text-white shadow-lg transition hover:-translate-y-1 hover:bg-emerald-800 focus:outline-none focus:ring-4 focus:ring-emerald-200"
             >
               <Battery size={19} />
               Explore Batteries
@@ -70,7 +71,7 @@ export default function Hero() {
 
             <Link
               href="/#wifi-services"
-              className="inline-flex items-center gap-2 rounded-xl border border-sky-300 bg-white/90 px-6 py-3.5 font-semibold text-sky-900 shadow-sm backdrop-blur transition hover:-translate-y-1 hover:border-sky-600"
+              className="inline-flex items-center gap-2 rounded-xl border border-sky-300 bg-white/90 px-6 py-3.5 font-semibold text-sky-900 shadow-sm backdrop-blur transition hover:-translate-y-1 hover:border-sky-600 focus:outline-none focus:ring-4 focus:ring-sky-200"
             >
               <Wifi size={19} />
               Explore WiFi Services
@@ -92,13 +93,17 @@ export default function Hero() {
                   size={16}
                   className="text-emerald-700"
                 />
+
                 {item}
               </span>
             ))}
           </div>
         </div>
 
-        <div className="hidden lg:block" aria-hidden="true" />
+        <div
+          className="hidden lg:block"
+          aria-hidden="true"
+        />
       </div>
     </section>
   );
