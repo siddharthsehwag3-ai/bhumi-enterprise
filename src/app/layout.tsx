@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
 import SiteChrome from "@/components/SiteChrome/SiteChrome";
-import { getSiteSettings } from "@/lib/site-settings";
+import { getCachedSiteSettings } from "@/lib/public-data-cache";
 import { getSiteUrl } from "@/lib/site-url";
 
 const geist = Geist({
@@ -137,7 +137,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const settings = await getSiteSettings();
+  const settings = await getCachedSiteSettings();
 
   const localBusinessData = {
     "@context": "https://schema.org",

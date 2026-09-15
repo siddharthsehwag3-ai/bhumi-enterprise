@@ -7,9 +7,9 @@ import {
 } from "lucide-react";
 import BatteryCatalog from "@/components/BatteryCatalog/BatteryCatalog";
 import {
-  getPublishedBatteryCategory,
-  getPublishedProductsByCategory,
-} from "@/lib/battery-database";
+  getCachedBatteryCategory,
+  getCachedBatteryProducts,
+} from "@/lib/public-data-cache";
 
 type CategoryPageProps = {
   params: Promise<{
@@ -24,7 +24,7 @@ export async function generateMetadata({
 }: CategoryPageProps): Promise<Metadata> {
   const { category: requestedCategory } = await params;
   const category =
-    await getPublishedBatteryCategory(requestedCategory);
+    await getCachedBatteryCategory(requestedCategory);
 
   if (!category) {
     return {
@@ -44,8 +44,8 @@ export default async function CategoryPage({
   const { category: requestedCategory } = await params;
 
   const [category, products] = await Promise.all([
-    getPublishedBatteryCategory(requestedCategory),
-    getPublishedProductsByCategory(requestedCategory),
+    getCachedBatteryCategory(requestedCategory),
+    getCachedBatteryProducts(requestedCategory),
   ]);
 
   if (!category) {

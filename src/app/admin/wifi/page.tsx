@@ -1,5 +1,8 @@
 import Link from "next/link";
-import { revalidatePath } from "next/cache";
+import {
+  revalidatePath,
+  revalidateTag,
+} from "next/cache";
 import { redirect } from "next/navigation";
 import {
   ArrowLeft,
@@ -73,6 +76,10 @@ function normalizeOptions(value: unknown) {
 }
 
 function refreshWifiPages() {
+  revalidateTag("wifi-services", {
+    expire: 0,
+  });
+
   revalidatePath("/");
   revalidatePath("/wifi-services");
   revalidatePath("/wifi-services/[service]", "page");

@@ -1,5 +1,8 @@
 import Link from "next/link";
-import { revalidatePath } from "next/cache";
+import {
+  revalidatePath,
+  revalidateTag,
+} from "next/cache";
 import { redirect } from "next/navigation";
 import {
   ArrowLeft,
@@ -113,12 +116,16 @@ async function updateSettings(formData: FormData) {
     establishedYear,
   });
 
-  revalidatePath("/", "layout");
-  revalidatePath("/");
-  revalidatePath("/contact");
-  revalidatePath("/wifi-services");
-  revalidatePath("/wifi-services/[service]", "page");
-  revalidatePath("/admin/settings");
+  revalidateTag("site-settings", {
+  expire: 0,
+});
+
+revalidatePath("/", "layout");
+revalidatePath("/");
+revalidatePath("/contact");
+revalidatePath("/wifi-services");
+revalidatePath("/wifi-services/[service]", "page");
+revalidatePath("/admin/settings");
 }
 
 export const dynamic = "force-dynamic";

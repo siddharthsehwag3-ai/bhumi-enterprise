@@ -9,8 +9,10 @@ import {
   Wifi,
 } from "lucide-react";
 import WifiRequestForm from "@/components/WifiRequestForm/WifiRequestForm";
-import { getSiteSettings } from "@/lib/site-settings";
-import { getPublishedWifiService } from "@/lib/wifi-database";
+import {
+  getCachedSiteSettings,
+  getCachedWifiService,
+} from "@/lib/public-data-cache";
 
 type WifiServicePageProps = {
   params: Promise<{
@@ -24,9 +26,8 @@ export async function generateMetadata({
   params,
 }: WifiServicePageProps): Promise<Metadata> {
   const { service: requestedService } = await params;
-
   const service =
-    await getPublishedWifiService(requestedService);
+    await getCachedWifiService(requestedService);
 
   if (!service) {
     return {
@@ -46,8 +47,8 @@ export default async function WifiServicePage({
   const { service: requestedService } = await params;
 
   const [service, settings] = await Promise.all([
-    getPublishedWifiService(requestedService),
-    getSiteSettings(),
+    getCachedWifiService(requestedService),
+    getCachedSiteSettings(),
   ]);
 
   if (!service) {

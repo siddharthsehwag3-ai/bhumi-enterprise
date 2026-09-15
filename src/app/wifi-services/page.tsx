@@ -5,18 +5,18 @@ import {
   MessageCircle,
   Wifi,
 } from "lucide-react";
+import { createWhatsappUrl } from "@/lib/site-settings";
 import {
-  createWhatsappUrl,
-  getSiteSettings,
-} from "@/lib/site-settings";
-import { getPublishedWifiServices } from "@/lib/wifi-database";
+  getCachedSiteSettings,
+  getCachedWifiServices,
+} from "@/lib/public-data-cache";
 
 export const dynamic = "force-dynamic";
 
 export default async function WifiServicesPage() {
   const [services, settings] = await Promise.all([
-    getPublishedWifiServices(),
-    getSiteSettings(),
+    getCachedWifiServices(),
+    getCachedSiteSettings(),
   ]);
 
   const generalWhatsappUrl = createWhatsappUrl(

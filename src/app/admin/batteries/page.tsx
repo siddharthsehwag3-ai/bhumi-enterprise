@@ -1,5 +1,8 @@
 import Link from "next/link";
-import { revalidatePath } from "next/cache";
+import {
+  revalidatePath,
+  revalidateTag,
+} from "next/cache";
 import { redirect } from "next/navigation";
 import {
   ArrowLeft,
@@ -76,6 +79,10 @@ async function requireAdmin() {
 }
 
 function refreshBatteryPages() {
+  revalidateTag("battery-catalogue", {
+    expire: 0,
+  });
+
   revalidatePath("/");
   revalidatePath("/batteries");
   revalidatePath("/batteries/[category]", "page");

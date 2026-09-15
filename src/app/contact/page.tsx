@@ -13,8 +13,8 @@ import {
   createMapsDirectionsUrl,
   createMapsEmbedUrl,
   createWhatsappUrl,
-  getSiteSettings,
 } from "@/lib/site-settings";
+import { getCachedSiteSettings } from "@/lib/public-data-cache";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 
 export default async function ContactPage() {
-  const settings = await getSiteSettings();
+  const settings = await getCachedSiteSettings();
 
   const whatsappUrl = createWhatsappUrl(
     settings,

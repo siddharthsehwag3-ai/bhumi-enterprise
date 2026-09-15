@@ -13,7 +13,7 @@ import {
   Truck,
   Zap,
 } from "lucide-react";
-import { getPublishedBatteryCategories } from "@/lib/battery-database";
+import { getCachedBatteryCategories } from "@/lib/public-data-cache";
 
 const categoryIcons = {
   "two-wheeler": Bike,
@@ -30,7 +30,7 @@ const categoryIcons = {
 export const dynamic = "force-dynamic";
 
 export default async function BatteriesPage() {
-  const categories = await getPublishedBatteryCategories();
+  const categories = await getCachedBatteryCategories();
 
   return (
     <main className="relative min-h-screen bg-[#f4f8f5]/90 px-5 py-14 sm:px-6 sm:py-16">
